@@ -1,0 +1,14 @@
+.Header{
+    width: 100vw;
+    height: 13vh;
+}
+.logoSct{
+    display: flex;
+    width: 50vw;
+    height: 13vh;
+    align-items: center;
+    padding-left: 3rem;}
+.logo{
+    object-fit: contain;
+    height: 3.1rem;
+}
