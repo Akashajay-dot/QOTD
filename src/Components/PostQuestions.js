@@ -5,7 +5,7 @@ import AnswerOptions from './AnswerOptions';
 import { GlobalStateContext } from '../Context/GlobalStateContext';
 import { toast, ToastContainer } from 'react-toastify';
 import DropDown1 from './Dropdown1';
-import { Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Popover2 from './Popover2';
 
 function PostQuestions() {
@@ -21,17 +21,33 @@ function PostQuestions() {
   const [pop, setPop] = useState(false);
 
 
-
   const [selectedPoints, setSelectedPoints] = useState('Add Points');
   const { state  ,setLoading} = useContext(GlobalStateContext);
- 
+  const toastRef = useRef(null);
+ const navigate = useNavigate();
 
   
   const textareaRef = useRef(null);
+  useEffect(()=>{
+    setLoading(false);
+
+    setPostQuestion('');
+    setPostSnapShot('');
+    setAnswers([{ text: '', isCorrect: false }]);
+    setCategory('Multiple Choice');
+    setSelectedCategory('Select Category');
+    setSelectedType('Select Type');
+    setSelectedTypeId();
+    sethasMultipleAns();
+    setPostable(false);
+    setPop(false);
+    setSelectedPoints('Add Points');
+
+
+  },[state.toggle])
 
   useEffect(() => {
     // Adjust the width of the textarea based on the scroll width
-    setLoading(false);
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto'; // Reset the height to auto to get the correct scrollHeight
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
@@ -43,7 +59,7 @@ function PostQuestions() {
       
     }
 
-  },[hasMultipleAns]);
+  },[postable]);
 
   useEffect(() => {
     // Adjust the number of answer options based on the selected category
@@ -64,6 +80,7 @@ function PostQuestions() {
 
   const handleQuestion = (e) => {
     setPostQuestion(e.target.value);
+
   };
 
   const handleSnapshot = (e) => {
@@ -115,53 +132,65 @@ function PostQuestions() {
     setSelectedPoints(selectedPoints);
   };
 
+  // const handleBack =()=>{
+  //   navigate("/");
+  // }
   const post = (e) => {
    
     e.preventDefault();
+    try {
 
     if (!postQuestion.trim()) {
       
-      toast.error('Please enter a question.');
+      toast.error('Please enter a question.',{ autoClose: 5000 ,onClose: () => toastRef.current = null });
       return;
     }
 
     if (!postSnapShot.trim()) {
-      toast.error('Please enter a snapshot.');
+      toast.error('Please enter a snapshot.',{ autoClose: 500 });
+      
       return;
     }
 
     if (answers.some(answer => !answer.text.trim())) {
-      toast.error('Please enter valid answers.');
+      toast.error('Please enter valid answers.',{ autoClose: 500 });
+      
       return;
     }
     if (category === 'Select Category') {
-      toast.error('Please select a category.');
+      toast.error('Please select a category.',{ autoClose: 500 });
+      
       return;
     }
 
     if (selectedType === 'Select Type') {
-      toast.error('Please select a type.');
+      toast.error('Please select a type.',{ autoClose: 500 });
+      
       return;
     }
 
     if (selectedPoints === 'Add Points') {
-      toast.error('Please select the points.');
+      toast.error('Please select the points.',{ autoClose: 500 });
+      
       return;
     }
 
 
     if (category === 'Multiple Choice') {
       if (answers.length < 2) {
-        toast.error('Please provide at least 2 answers for multiple-choice questions.');
+        toast.error('Please provide at least 2 answers for multiple-choice questions.',{ autoClose: 500 });
+        
         return;
       }
       if (!answers.some(answer => answer.isCorrect)) {
-        toast.error('Please mark at least one answer as correct.');
+        toast.error('Please mark at least one answer as correct.',{ autoClose: 500 });
+        
         return;
       }
     } else if (category === 'True/False') {
       if (answers.length !== 2) {
-        toast.error('Please provide exactly 2 answers for true/false questions.');
+        toast.error('Please provide exactly 2 answers for true/false questions.',{ autoClose: 500 });
+        
         return;
       }
     }
@@ -172,6 +201,9 @@ function PostQuestions() {
       sethasMultipleAns(false);
     } 
     setPostable(true);
+  } catch (error) {
+    console.error('Error during post validation:', error);
+}
   };
   const posting=()=>{
     
@@ -266,9 +298,9 @@ function PostQuestions() {
             <button type="button" className='addChoice' onClick={addAnswerOption}>Add Choice</button>
           )}
           <div className="buttons">
-            <button className="preview" type="button">
-              Preview
-            </button>
+            <Link className="preview" to={"/"}>
+              Cancel
+            </Link>
             <button className="submit" type="submit">
               Submit
             </button>

@@ -5,7 +5,7 @@ import { GlobalStateContext } from '../Context/GlobalStateContext';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import Popover from './Popover';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Loading from './Loading';
 
 function LandingPage() {
@@ -25,6 +25,18 @@ function LandingPage() {
   const [popover, setPopover] = useState(false);
   const [pAns ,setpAns ] = useState(false);
   const [noQuestion , setnoQuestion] = useState(false);
+  const navigate = useNavigate();
+  let currentChar = 'A';
+  let i=0;
+  function incrementChar() {
+    // console.log(i);
+    
+    currentChar = String.fromCharCode(currentChar.charCodeAt(0) + i);
+    i=1;
+    
+    return currentChar;
+  }
+  
   useEffect(() => {
     if(justAnswered){
      Post();
@@ -40,7 +52,7 @@ function LandingPage() {
           setPoint(response.data.Question.Point);
           sethasMultipleAnswers(response.data.Question.HasMultipleAnswers);
           setQuestionId(response.data.Question.QuestionId)
-          // console.log(response);
+          console.log(response);
           const data = response.data.AnswerOptions;
           const answersArray = [];
           for (let i = 0; i < response.data.AnswerKeys.length; i++) {
@@ -150,7 +162,9 @@ function LandingPage() {
        Ready to create a question? 🌟✏️</h2>
        <div className="popBtns">
         <Link to={"/postQuestions"}> <button  className='addQstnBtn'>Add   Questions</button></Link>
-            <button className='prvQstnBtn'>Prev Question</button>
+          <Link to="prevQuestions">  <button className='prvQstnBtn'>Prev Question</button> </Link>
+        {/* <button className='prvQstnBtn' >Prev Questions</button> */}
+
             
         </div>
    
@@ -170,7 +184,15 @@ function LandingPage() {
           Options.map(option => (
             <div key={option.AnswerOptionId}>
               <div className="option">
+                <div className="optionInner">
+
+              <button type="button" className="ansSelect">
+        {
+          incrementChar()
+        }
+        </button>
                 <h4>{option.Option}</h4>
+</div>
                 <label className="custom-checkbox-label">
                   <input
                     className="custom-checkbox"
@@ -189,8 +211,9 @@ function LandingPage() {
           Options.map(option => (
             <div key={option.AnswerOptionId}>
               <div className={(Answer.includes(option.AnswerOptionId)) ? 'option sucess' : 'option wrong'}>
+              
                 <h4>{option.Option}</h4>
-                {(selectedAnswers.includes(option.AnswerOptionId)) && <div className='round'></div>}
+                {/* {(selectedAnswers.includes(option.AnswerOptionId)) && <div className='round'></div>} */}
               </div>
             </div>))  
         )}

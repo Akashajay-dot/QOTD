@@ -27,7 +27,7 @@ textarea::placeholder{
     display: flex;
     /* gap: 3rem; */
     justify-content: space-between;
-    margin-bottom: 2rem;
+    /* margin-bottom: 2rem; */
 }
 .postQuestions{
     /* width:80vh; */
@@ -39,6 +39,7 @@ textarea::placeholder{
     justify-content: center;
     align-items:center;
     height: 70vh;
+    margin-top: 4rem;
     
 }
 #snapShot {
@@ -105,10 +106,14 @@ textarea::placeholder{
    border-radius: 5px;
    background-color: #2D353E;
    color: white;
+   text-decoration: none;
+   font-size: 0.84rem;
+   font-weight: lighter;
 
   }
   .submit{
    padding-inline: 1rem;
+   padding-block: 0.5rem;
    border-radius: 5px;
    background-color: #3E8F62;
    color: white; 

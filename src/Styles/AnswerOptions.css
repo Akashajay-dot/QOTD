@@ -28,3 +28,13 @@
   .bin-button:active {
     transform: scale(0.9);
   }
+.select-button{
+ padding-inline: 0.5rem;
+ padding-block: 0.1rem;
+ border-radius: 3px;
+ background-color: rgb(143, 143, 143);
+}
+.selected{
+  background-color: #4aba7c;
+  color: white;
+}

@@ -23,12 +23,24 @@
 .option{
     display: flex;
     justify-content: space-between;
-    padding-inline: 2rem;
+    padding-inline: 1rem;
     padding-block: 1rem;
     border: 1px solid #282D32;
     background-color: #0f0f0fdd;
     border-radius: 5px;
     font-weight: 100;
+}
+.optionInner{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    /* justify-content: space-between; */
+    /* padding-inline: 2rem; */
+    /* padding-block: 1rem; */
+    /* border: 1px solid #282D32; */
+    /* background-color: #0f0f0fdd; */
+    /* border-radius: 5px; */
+    /* font-weight: 100; */
 }
 /* input[type="radio"]{
     transform: scale(1.5);

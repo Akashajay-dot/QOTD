@@ -1,7 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import "../Styles/Popover.css"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { GlobalStateContext } from '../Context/GlobalStateContext';
 function Popover({popover,iscorrect,point}) {
+  const { state ,setToggle } = useContext(GlobalStateContext);
+  const navigate = useNavigate();
+const handleClick = ()=>{
+navigate('/prevQuestions');
+// navigate(0);
+
+setToggle(!state.toggle);
+
+  
+
+}
   return (
 
     <div className={popover ?'popover' :'PopOver'}>
@@ -9,7 +21,8 @@ function Popover({popover,iscorrect,point}) {
         {!iscorrect && <h3>No worries! Wrong answer this time. <br />Better luck next round! 🤞 🏆</h3>}
         <div className="popBtns">
         <Link to={"/postQuestions"}> <button className='addQstnBtn'>Add   Questions</button></Link>
-            <button className='prvQstnBtn'>Prev Question</button>
+        {/* <Link  to={"/prevQuestion"}> <button className='prvQstnBtn'  >Prev   Questions</button></Link> */}
+        <button className='prvQstnBtn' onClick={handleClick}>Prev Questions</button>
             
         </div>
    

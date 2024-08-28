@@ -9,9 +9,18 @@ import { toast, ToastContainer } from 'react-toastify';
 import { GlobalStateContext } from './Context/GlobalStateContext';
 import axios from 'axios';
 import Loading from './Components/Loading';
+import PreviousQuestion from './Components/PreviousQuestion';
+import Approve from './Components/Approve';
+import NotFoundComponent from './Components/NotFoundComponent';
+import QuestionBank from './Components/QuestionBank';
+import Prev from './Components/Prev';
+import DesktopOnly from './Components/DesktopOnly';
+import LeaderBoard from './Components/LeaderBoard';
 
 function App() {
-  const { state, setLogedin ,setId,setCategory,setUserName, setLoading} = useContext(GlobalStateContext);
+
+  const { state, setLogedin ,setId,setCategory,setUserName, setLoading,setAdmin,setPic,setTotaluser,setRank,setEmail} = useContext(GlobalStateContext);
+ 
   useEffect(() => {
     const credential = localStorage.getItem('token');
     const notify = () => toast.error("Error login");
@@ -28,9 +37,19 @@ function App() {
             setUserName(res.data.Payload.name);
 
             setLogedin(true);
+            setPic(res.data.Payload.picture);
+            setTotaluser(res.data.totalUsers)
+            // setPic(res.data.Payload.picture);
+            setEmail(res.data.Payload.email)
+                          setRank(res.data.userRank)
+
             setCategory(res.data.category);
             setLoading(true);
-            
+            if(res.data.isAdmin){
+              setAdmin(true);
+              // console.log("i am admin")
+             }
+
           } else {
            
           }
@@ -52,20 +71,31 @@ function App() {
 
   return (
     <div className="App">
-      <Router >
-        <Header/>
+       <DesktopOnly>
+              <Router >
+                {
+                  state.isLogedin && <Header/>
+                }
         {state.loading &&<Loading/> }
         <Routes>
-          <Route path='/' element={state.isLogedin ? <LandingPage />: <LoginPage/> }/> 
-          {state.isLogedin &&
-          (  <Route path='/postQuestions' element={<PostQuestions/>}/>
           
+          <Route path='/' element={state.isLogedin ? <LandingPage />: <LoginPage/> }/> 
+        
+       <Route path='/postQuestions' element={state.isLogedin ? <PostQuestions />: <LoginPage/>} />
+          <Route path='/leaderBoard' element={state.isLogedin ?<LeaderBoard />: <LoginPage/>} />
+          <Route path='/prevQuestions' element={state.isLogedin ?<Prev />: <LoginPage/>} />
+          <Route path='/prevQuestionspage/:message' element={state.isLogedin ?<PreviousQuestion />: <LoginPage/>} />
+
+           <Route path='/approveQuestions' element={state.isLogedin && state.isAdmin ? <Approve />: <LoginPage/>} />
+           <Route path='/questions' element={state.isLogedin && state.isAdmin ? <QuestionBank />: <LoginPage/>} />
+
+          <Route path="*" element={<NotFoundComponent />} />
          
-          )
-          }
         </Routes>
      </Router>
+     </DesktopOnly>
      <ToastContainer />
+   
     </div>
   );
 }

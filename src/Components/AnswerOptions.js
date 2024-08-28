@@ -14,11 +14,17 @@ function AnswerOptions({ index, answer, isCorrect, onChange, onDelete }) {
     e.preventDefault(); // Prevent form submission
     onChange(answer, !isCorrect); // Send the updated correctness status
   };
-
+  let currentChar = 'A';
+  function incrementChar() {
+    currentChar = String.fromCharCode(currentChar.charCodeAt(0) + index);
+    return currentChar;
+  }
   return (
     <div className="ansOption">
       <button type="button" className="ansSelect">
-        {index + 1}
+        {
+          incrementChar()
+        }
       </button>
       <input type="text" className="ansInput" placeholder="Choice" value={answer} onChange={handleInputChange} />
       <button
