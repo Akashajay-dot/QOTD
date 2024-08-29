@@ -29,6 +29,8 @@ function Prev() {
  const [searchtxt ,setSearchtext ]= useState('');
  const [searchtxt2 ,setSearchtext2 ]= useState(null);
 const [toggle , setToggle ] = useState(true);
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
 
   useEffect(()=>{
   setLoading(false);
@@ -39,7 +41,7 @@ Qid();
   const Qid = async ()=>{
     try{
     
-        const Qids = await axios.get(`http://localhost:57101/api/Count/${state.id}`);
+        const Qids = await axios.get(`${apiBaseUrl}/api/Count/${state.id}`);
         console.log(Qids)
         setQids(Qids.data.ApprovedQuestionIds);
         setAnsweredQIds(Qids.data.answeredQuestionIds)

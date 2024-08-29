@@ -3,7 +3,7 @@
     width: 100vw;
     display: flex;
     font-family: 'Inter';
-   background-image: url("../Assets/new1.jpg");
+   /* background-image: url("../Assets/new1.jpg"); */
    background-size: cover ;
    background-position: center center;
    /* background-repeat: no-repeat; */

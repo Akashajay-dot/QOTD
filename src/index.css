@@ -12,7 +12,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   max-width: 100vw;
   height: 100vh;
-  background-image: url("./Assets/background.jpg");
+  /* background-image: url("./Assets/background.jpg"); */
   
   background-size: cover ;
   background-position: center;

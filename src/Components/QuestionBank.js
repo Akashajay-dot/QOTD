@@ -27,6 +27,8 @@ function QuestionBank() {
  const [searchtxt ,setSearchtext ]= useState('');
  const [searchtxt2 ,setSearchtext2 ]= useState(null);
 const [toggle , setToggle ] = useState(true);
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
 
   useEffect(()=>{
   setLoading(false);
@@ -37,7 +39,7 @@ Qid();
   const Qid = async ()=>{
     try{
     
-        const Qids = await axios.get(`http://localhost:57101/api/questions/active/${filter}/${catid}/${searchtxt2}`);
+        const Qids = await axios.get(`${apiBaseUrl}/api/questions/active/${filter}/${catid}/${searchtxt2}`);
         setQids(Qids.data);
         // /${searchtxt}
     
@@ -53,7 +55,7 @@ Qid();
     }
   const deleteQuestion=async (i)=>{
       try {
-        const response = await axios.delete(`http://localhost:57101/api/delete/${i}`);
+        const response = await axios.delete(`${apiBaseUrl}/api/delete/${i}`);
         if (response.status === 204) {
           console.log("Question deleted successfully");
           // Optionally, update your UI here to reflect the deletion

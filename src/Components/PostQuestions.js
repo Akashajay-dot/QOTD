@@ -25,6 +25,8 @@ function PostQuestions() {
   const { state  ,setLoading} = useContext(GlobalStateContext);
   const toastRef = useRef(null);
  const navigate = useNavigate();
+ const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
 
   
   const textareaRef = useRef(null);
@@ -227,7 +229,7 @@ function PostQuestions() {
 
     
     console.log('Submitted Data:', data);
-    fetch('http://localhost:57101/api/PostQuestions', {
+    fetch(`${apiBaseUrl}/api/PostQuestions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

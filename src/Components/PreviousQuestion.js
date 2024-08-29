@@ -24,6 +24,8 @@ function PreviousQuestion() {
   const [popover, setPopover] = useState(false);
   const [noQuestion, setNoquestion] = useState(false);
   const { message } = useParams();
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
 
 
 
@@ -54,7 +56,7 @@ function PreviousQuestion() {
             const fetchQuestion = async () => {
               try {
                 
-                const response = await axios.get(`http://localhost:57101/api/FetchQuestion/${message}`);
+                const response = await axios.get(`${apiBaseUrl}/api/FetchQuestion/${message}`);
 
                 if (response.status === 200) {
 
@@ -144,7 +146,7 @@ function PreviousQuestion() {
                 isCorrect:isCorrect,
                 Points:point,
               }
-              fetch('http://localhost:57101/api/PostResponse', {
+              fetch(`${apiBaseUrl}/api/PostResponse`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

@@ -7,6 +7,7 @@ const UserList = forwardRef(({ id ,index}, ref) => {
     const [points , setPoints]=useState('');
     const [badge , setBadge]=useState('');
 
+    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 
     useEffect(()=>{
@@ -14,7 +15,7 @@ const UserList = forwardRef(({ id ,index}, ref) => {
         try{
         const fetchUserdetails =async ()=>{
                 // http://localhost:57101/api/user/5
-                const response = await axios.get(`http://localhost:57101/api/user/${id}`);
+                const response = await axios.get(`${apiBaseUrl}/api/user/${id}`);
                 // return(response);
                 setname(response.data.User.Name)
                 setPoints(response.data.User.Points)

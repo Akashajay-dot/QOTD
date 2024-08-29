@@ -13,6 +13,8 @@ function LoginPage() {
     const { state, setLogedin ,setId,setCategory ,setUserName,setLoading,setAdmin,setPic,setTotaluser,setRank,setEmail} = useContext(GlobalStateContext);
     const notify = () => toast.error("Error login");
     const navigate = useNavigate();
+    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
 
 
   return (
@@ -27,11 +29,11 @@ function LoginPage() {
                         const decoded = jwtDecode(Response.credential);  
                         const  credential  = Response.credential;
 
-                        // if(decoded.email.endswith("@gmail.com")){
+                        if(decoded.email.endsWith("@carestack.com")){
                           
-                        // }
+                        
                         try {
-                          const res = await axios.post('http://localhost:57101/api/auth/validate-token', {
+                          const res = await axios.post(`${apiBaseUrl}/api/auth/validate-token`, {
                             credential: credential
                           });
                           if(res.data.Isvalid){
@@ -70,6 +72,10 @@ function LoginPage() {
                           notify();
 
                         }
+                      }else{
+                        notify();
+
+                      }
           
           
           
@@ -83,7 +89,7 @@ function LoginPage() {
                      
                 }}/>
                 {/* <a href="">Forgot Password?</a>  */}
-                <p className='loginbutm'>By logging in, you agree to abide by the company's usage policies.</p>
+                <p className='loginbutm'>By logging in, you agree to abide by the CareStack's usage policies.</p>
             </div>
         </div>
         <div className="hero">

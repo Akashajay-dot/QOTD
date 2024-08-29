@@ -16,10 +16,12 @@ import QuestionBank from './Components/QuestionBank';
 import Prev from './Components/Prev';
 import DesktopOnly from './Components/DesktopOnly';
 import LeaderBoard from './Components/LeaderBoard';
-
+import backgroundImage from './Assets/background.jpg';
+import anotherBackgroundImage from './Assets/new1.jpg';
 function App() {
 
   const { state, setLogedin ,setId,setCategory,setUserName, setLoading,setAdmin,setPic,setTotaluser,setRank,setEmail} = useContext(GlobalStateContext);
+  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
  
   useEffect(() => {
     const credential = localStorage.getItem('token');
@@ -28,7 +30,7 @@ function App() {
     const validateToken = async () => {
       if (credential ) {
         try {
-          const res = await axios.post('http://localhost:57101/api/auth/validate-token', {
+          const res = await axios.post(`${apiBaseUrl}/api/auth/validate-token`, {
             credential: credential
           });
 
@@ -67,10 +69,12 @@ function App() {
 
     validateToken();
   }, []);
-
-
+  const backgroundStyle = {
+    backgroundImage:`url(${state.isLogedin ? backgroundImage : anotherBackgroundImage})`,
+  };
+  
   return (
-    <div className="App">
+    <div className="App" style={backgroundStyle}>
        <DesktopOnly>
               <Router >
                 {

@@ -31,6 +31,8 @@ function QBblock({id,onchange,previous}) {
   // .add(1, 'day')
   // const [dates, setDates] = useState([]);
    const today = dayjs();
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
 
    
 
@@ -46,7 +48,7 @@ useEffect(() => {
 }, []);
 const fetchDates = async () => {
   try {
-    const response = await axios.get('http://localhost:57101/api/questions/dates');
+    const response = await axios.get(`${apiBaseUrl}/api/questions/dates`);
     setDates(response.data.map(date => dayjs(date).format('YYYY-MM-DD')));
   } catch (error) {
     console.error('Error fetching question dates:', error);
@@ -57,7 +59,7 @@ useEffect(() => {
   const fetchQuestion = async () => {
     try {
       
-      const response = await axios.get(`http://localhost:57101/api/FetchQuestion/${id}`);
+      const response = await axios.get(`${apiBaseUrl}/api/FetchQuestion/${id}`);
       if (response.status === 200) {
         // console.log(response);
         setQuestion(response.data[0].Question.Question);
@@ -134,7 +136,7 @@ const changeDate =async ()=>{
 
   try {
     // Send PUT request to the backend API
-    const response = await axios.put('http://localhost:57101/api/questions/update', {
+    const response = await axios.put(`${apiBaseUrl}/api/questions/update`, {
         QuestionId: id,
         Date: value,
     });

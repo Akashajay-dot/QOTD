@@ -13,6 +13,8 @@ function LeaderBoard() {
     const [ pics , setPics] = useState([]);
 
     const userRefs = useRef({});
+  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
    
     useEffect(() => {
         if (ranked.length > 0 && userRefs.current[state.id]) {
@@ -25,7 +27,7 @@ useEffect(()=>{
     setLoading(false);
 const fetchusers=async ()=>{
     try{
-        const response = await axios.get("http://localhost:57101/api/users/orderedbyPoints");
+        const response = await axios.get(`${apiBaseUrl}/api/users/orderedbyPoints`);
         // setRanked
         // console.log(response.data);
         setRanked(response.data);

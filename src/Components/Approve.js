@@ -25,6 +25,7 @@ function Approve() {
   const { state  ,setLoading,setQId} = useContext(GlobalStateContext);
   const [response1 ,setresponse] = useState();
   const navigate = useNavigate();
+  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
  useEffect(()=>{
   setLoading(false);
@@ -54,7 +55,7 @@ function Approve() {
   const fetch =async ()=>{
     try {
       
-      const response = await axios.get(`http://localhost:57101/api/FetchQuestion/${state.QId}`);
+      const response = await axios.get(`${apiBaseUrl}api/FetchQuestion/${state.QId}`);
       //  console.log(response);
       if (response.status === 200) {
         setresponse(response.data[0]);
@@ -237,7 +238,7 @@ const assign=()=>{
       LastUpdatedBy:state.UserName 
     };
     console.log(data);
-    await axios.put(`http://localhost:57101/api/EditQuestion/${state.QId}`, data);
+    await axios.put(`${apiBaseUrl}/api/EditQuestion/${state.QId}`, data);
     navigate("/questions")
 
   }

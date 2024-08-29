@@ -26,6 +26,8 @@ function LandingPage() {
   const [pAns ,setpAns ] = useState(false);
   const [noQuestion , setnoQuestion] = useState(false);
   const navigate = useNavigate();
+  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+
   let currentChar = 'A';
   let i=0;
   function incrementChar() {
@@ -46,7 +48,7 @@ function LandingPage() {
     const fetchQuestion = async () => {
       try {
         const userId =state.id;
-        const response = await axios.get(`http://localhost:57101/api/question/get-daily-question/${userId}`);
+        const response = await axios.get(`${apiBaseUrl}/api/question/get-daily-question/${userId}`);
         if (response.status === 200) {
           setQuestion(response.data.Question.Question);
           setPoint(response.data.Question.Point);
@@ -123,7 +125,7 @@ function LandingPage() {
       Points:point,
     }
     console.log(data);
-    fetch('http://localhost:57101/api/PostResponse', {
+    fetch(`${apiBaseUrl}/api/PostResponse`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

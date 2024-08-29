@@ -22,6 +22,7 @@ function Header() {
   const [totalRank, setTotalrank]=useState('');
     const { state,setLogedin} = useContext(GlobalStateContext);
 
+
   const logout=()=>{
     handleClose();
     setLogedin(false);
