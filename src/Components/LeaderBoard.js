@@ -94,7 +94,7 @@ fetchusers();
             )}
             </div>
 
-                <input type="text" className='userSearch' placeholder='search a user'/>
+                {/* <input type="text" className='userSearch' placeholder='search a user'/> */}
                 <div className="userlist">
 {
     ranked.map((i,index)=>(

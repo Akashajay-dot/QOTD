@@ -1,11 +1,14 @@
-import React, { forwardRef, useEffect, useState } from 'react'
+import React, { forwardRef, useContext, useEffect, useState } from 'react'
 import "../Styles/LeaderBoard.css";
 import axios from 'axios';
+import { GlobalStateContext } from '../Context/GlobalStateContext';
 
 const UserList = forwardRef(({ id ,index}, ref) => {
     const [name , setname]=useState('');
     const [points , setPoints]=useState('');
     const [badge , setBadge]=useState('');
+    const [isUser ,setIsuser]=useState(false);
+    const { state} = useContext(GlobalStateContext);
 
     const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -25,6 +28,9 @@ const UserList = forwardRef(({ id ,index}, ref) => {
 
             }
             fetchUserdetails();
+        if(id==state.id){
+          setIsuser(true);
+        }
         }
             catch{
                 console.log("error");
@@ -32,7 +38,7 @@ const UserList = forwardRef(({ id ,index}, ref) => {
     },[])
 
     return (
-      <div className='UserList' id={id} ref={ref}><div className="userListleft">
+      <div className={isUser ? 'active-class  UserList' : 'UserList'}id={id} ref={ref}><div className="userListleft ">
         <p className='userRank'>{index+1}</p>
         <h6>{name}</h6>
         <div className="rankTittle">

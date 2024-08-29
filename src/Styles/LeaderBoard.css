@@ -66,6 +66,7 @@ align-items: center;
 .userlist-div::-webkit-scrollbar {
     display: none; /* For Chrome, Safari, and Opera */
   }
+  
 .pos1{
     background-color: #0f0f0fb6;
     /* background-color: wheat; */
@@ -112,6 +113,11 @@ justify-content: space-between;
 gap: 1rem;
 padding-left: 1rem;
 padding-right: 1rem;
+}
+.active-class{
+ 
+  border-bottom: 2px solid rgba(31, 112, 39, 0.396);
+
 }
 .userListleft{
     width: 20vw;
